@@ -1,1 +1,657 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tasty | Avant-Garde Dining</title>
 
+  <!-- Google Fonts: Cabinet Grotesk / Space Grotesk / Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+
+  <!-- Bootstrap & Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-dark: #09090b;       /* Tailored Zinc 950 Deep Dark */
+      --card-bg: #18181b;       /* Zinc 900 Card Accent */
+      --border-color: #27272a;  /* Zinc 800 Clean Borders */
+      --primary: #10b981;        /* Vivid Emerald Accent */
+      --text-main: #f4f4f5;      /* Crisp Zinc 100 White */
+      --text-muted: #a1a1aa;    /* Soft Zinc 400 Gray */
+      --font-display: 'Space Grotesk', sans-serif;
+      --font-body: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: var(--font-body);
+      overflow-x: hidden;
+      letter-spacing: -0.01em;
+    }
+
+    h1, h2, h3, h4, h5, .navbar-brand {
+      font-family: var(--font-display);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+    }
+
+    /* Core Action Token Button */
+    .btn-modern {
+      background-color: var(--text-main);
+      color: var(--bg-dark);
+      font-weight: 600;
+      font-size: 0.9rem;
+      padding: 12px 28px;
+      border-radius: 9999px; /* Pill Shape */
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      border: 1px solid transparent;
+    }
+    .btn-modern:hover {
+      background-color: transparent;
+      color: var(--primary);
+      border-color: var(--primary);
+      transform: translateY(-1px);
+    }
+
+    .btn-modern-outline {
+      background-color: transparent;
+      color: var(--text-main);
+      font-weight: 600;
+      font-size: 0.9rem;
+      padding: 12px 28px;
+      border-radius: 9999px;
+      border: 1px solid var(--border-color);
+      transition: all 0.3s ease;
+    }
+    .btn-modern-outline:hover {
+      border-color: var(--text-main);
+      background-color: rgba(255, 255, 255, 0.03);
+    }
+
+    /* Modern Glass Navbar */
+    .navbar {
+      border-bottom: 1px solid var(--border-color);
+      backdrop-filter: blur(12px);
+      background-color: rgba(9, 9, 11, 0.75) !important;
+      padding: 18px 0;
+    }
+    .navbar-brand {
+      color: var(--text-main) !important;
+      font-size: 1.5rem;
+    }
+    .nav-link {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--text-muted) !important;
+      transition: color 0.2s ease;
+    }
+    .nav-link:hover, .nav-link.active {
+      color: var(--text-main) !important;
+    }
+
+    /* Minimalist Immersive Hero Section */
+    .hero {
+      min-height: 95vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+    }
+    .hero-title {
+      font-size: 5rem;
+      line-height: 0.95;
+      margin-bottom: 25px;
+      background: linear-gradient(180deg, #ffffff 0%, #a1a1aa 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .hero-desc {
+      font-size: 1.15rem;
+      color: var(--text-muted);
+      max-width: 540px;
+      line-height: 1.6;
+      margin-bottom: 35px;
+    }
+    .hero-img-frame {
+      border-radius: 24px;
+      overflow: hidden;
+      border: 1px solid var(--border-color);
+      box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+    }
+    .hero-img-frame img {
+      width: 100%;
+      height: 580px;
+      object-fit: cover;
+    }
+
+    /* Section Metadata Layouts */
+    .section-title {
+      font-size: 2.75rem;
+      color: var(--text-main);
+      margin-bottom: 12px;
+    }
+    .section-subtitle {
+      color: var(--text-muted);
+      font-size: 1.05rem;
+      margin-bottom: 60px;
+      max-width: 600px;
+    }
+
+    /* Modern Grid Food Menu Cards */
+    .menu-card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 20px;
+      overflow: hidden;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .menu-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(16, 185, 129, 0.4);
+    }
+    .menu-img-wrapper {
+      position: relative;
+      padding-top: 75%; /* 4:3 Aspect Ratio */
+      overflow: hidden;
+    }
+    .menu-img-wrapper img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .menu-card:hover .menu-img-wrapper img {
+      transform: scale(1.04);
+    }
+    .menu-body {
+      padding: 24px;
+    }
+    .menu-price {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      color: var(--primary);
+    }
+
+    /* Bento Grid Layout Configuration */
+    .bento-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .bento-item {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 24px;
+      padding: 40px;
+      transition: border-color 0.3s ease;
+    }
+    .bento-item:hover {
+      border-color: rgba(255,255,255,0.15);
+    }
+    .bento-item.large {
+      grid-column: span 2;
+    }
+    .bento-icon {
+      font-size: 2rem;
+      color: var(--primary);
+      margin-bottom: 20px;
+      display: inline-block;
+    }
+
+    /* Clean Gallery Masonry Mockup */
+    .gallery-grid img {
+      width: 100%;
+      height: 320px;
+      object-fit: cover;
+      border-radius: 16px;
+      border: 1px solid var(--border-color);
+      transition: all 0.3s ease;
+    }
+    .gallery-grid img:hover {
+      opacity: 0.8;
+    }
+
+    /* Minimal Guest Reviews */
+    .review-node {
+      background-color: var(--card-bg);
+      border-radius: 20px;
+      padding: 35px;
+      border: 1px solid var(--border-color);
+      height: 100%;
+    }
+    .review-avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 9999px;
+      object-fit: cover;
+    }
+
+    /* Modern Input Components */
+    .modern-input {
+      background-color: #0c0c0e;
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      padding: 16px;
+      border-radius: 12px;
+      font-size: 0.95rem;
+    }
+    .modern-input:focus {
+      background-color: #0c0c0e;
+      border-color: var(--primary);
+      box-shadow: none;
+      color: var(--text-main);
+    }
+
+    /* Premium Clean Footer */
+    footer {
+      border-top: 1px solid var(--border-color);
+      padding: 80px 0 40px 0;
+      font-size: 0.9rem;
+    }
+    .social-links a {
+      color: var(--text-muted);
+      font-size: 1.2rem;
+      margin-right: 20px;
+      transition: color 0.2s ease;
+    }
+    .social-links a:hover {
+      color: var(--text-main);
+    }
+
+    /* Custom Dialog Frame */
+    .modal-content {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 28px;
+      color: var(--text-main);
+    }
+    .btn-close {
+      filter: invert(1);
+    }
+
+    /* Structural adjustments */
+    .carousel-item img {
+      height: 600px;
+      object-fit: cover;
+      border-radius: 28px;
+    }
+
+    @media(max-width:992px){
+      .hero-title { font-size: 3.5rem; }
+      .bento-grid { grid-template-columns: 1fr; }
+      .bento-item.large { grid-column: span 1; }
+      .carousel-item img { height: 380px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Premium Navigation bar -->
+  <nav class="navbar navbar-expand-lg sticky-top navbar-dark">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="#">
+        TASTY<span class="text-emerald text-primary">.</span>
+      </a>
+      <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+        <i class="bi bi-list fs-2 text-white"></i>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navMenu">
+        <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+          <li class="nav-item"><a class="nav-link active" href="#home">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="#menu">Menu</a></li>
+          <li class="nav-item"><a class="nav-link" href="#gallery">Gallery</a></li>
+          <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+        </ul>
+        <button class="btn btn-modern" data-bs-toggle="modal" data-bs-target="#orderModal">
+          Reserve Table
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Split Luxury Hero Section -->
+  <section class="hero" id="home">
+    <div class="container">
+      <div class="row align-items-center g-5">
+        <div class="col-lg-6">
+          <h1 class="hero-title">Refining the Art of Dining.</h1>
+          <p class="hero-desc">Experience a culinary ecosystem designed around fresh organically gathered ingredients, masterful flavor execution, and sleek modern presentation models.</p>
+          <div class="d-flex gap-3">
+            <button class="btn btn-modern" data-bs-toggle="modal" data-bs-target="#orderModal">Order Online</button>
+            <a href="#menu" class="btn btn-modern-outline">View Menu</a>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="hero-img-frame">
+            <img src="https://images.pexels.com/photos/67468/pexels-photo-67468.jpeg" alt="Fine restaurant presentation layout">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Editorial Carousel Frame -->
+  <section class="container py-5">
+    <div id="foodSlider" class="carousel slide carousel-fade" data-bs-ride="carousel">
+      <div class="carousel-inner shadow-lg">
+        <div class="carousel-item active" data-bs-interval="4000">
+          <img src="https://images.pexels.com/photos/70497/pexels-photo-70497.jpeg" class="d-block w-100" alt="Plated Burger signature">
+        </div>
+        <div class="carousel-item" data-bs-interval="4000">
+          <img src="https://images.pexels.com/photos/1639562/pexels-photo-1639562.jpeg" class="d-block w-100" alt="Artisanal meal creation showcase">
+        </div>
+        <div class="carousel-item" data-bs-interval="4000">
+          <img src="https://images.pexels.com/photos/262978/pexels-photo-262978.jpeg" class="d-block w-100" alt="Gourmet presentation details">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Clean Editorial About Section -->
+  <section class="container py-5" id="about">
+    <div class="row align-items-center g-5">
+      <div class="col-lg-5 order-2 order-lg-1">
+        <span class="text-uppercase text-primary fw-bold tracking-wider small d-block mb-3">// ARCHITECTURE OF FLAVOR</span>
+        <h2 class="section-title text-start mb-4">We believe dining is an emotional narrative.</h2>
+        <p class="text-white leading-relaxed mb-4">
+          Tasty is an avant-garde space merging pristine agricultural ingredients with sharp contemporary culinary mechanics. Our team curates sensory structures across multiple courses to rethink conventional dining practices entirely.
+        </p>
+        <a href="#contact" class="btn btn-modern-outline">Connect With Us</a>
+      </div>
+      <div class="col-lg-7 order-1 order-lg-2">
+        <img src="https://images.pexels.com/photos/941861/pexels-photo-941861.jpeg" class="img-fluid rounded-4 border-zinc-setup shadow" style="border: 1px solid var(--border-color);" alt="Minimalist prep setting">
+      </div>
+    </div>
+  </section>
+
+  <!-- Clean Grid Menu Modules -->
+  <section class="container py-5" id="menu">
+    <h2 class="section-title">The Edible Catalogue</h2>
+    <p class="section-subtitle">Fresh compositions structured logically across our signature seasonal assets.</p>
+
+    <div class="row g-4">
+      <!-- Item Card 1 -->
+      <div class="col-lg-4 col-md-6">
+        <div class="menu-card h-100">
+          <div class="menu-img-wrapper">
+            <img src="https://images.pexels.com/photos/825661/pexels-photo-825661.jpeg" alt="Four-Cheese Pizza configuration">
+          </div>
+          <div class="menu-body">
+            <h5 class="fw-bold mb-2">Four-Cheese Pizza</h5>
+            <div class="d-flex justify-content-between align-items-center mt-3">
+              <span class="menu-price">₹120</span>
+              <button class="btn btn-modern-outline py-2 px-4 btn-sm" data-bs-toggle="modal" data-bs-target="#orderModal">Request</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Item Card 2 -->
+      <div class="col-lg-4 col-md-6">
+        <div class="menu-card h-100">
+          <div class="menu-img-wrapper">
+            <img src="https://images.pexels.com/photos/1639557/pexels-photo-1639557.jpeg" alt="Classic Crunch Burger profile">
+          </div>
+          <div class="menu-body">
+            <h5 class="fw-bold mb-2">Classic Crunch Burger</h5>
+            <div class="d-flex justify-content-between align-items-center mt-3">
+              <span class="menu-price">₹100</span>
+              <button class="btn btn-modern-outline py-2 px-4 btn-sm" data-bs-toggle="modal" data-bs-target="#orderModal">Request</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Item Card 3 -->
+      <div class="col-lg-4 col-md-6">
+        <div class="menu-card h-100">
+          <div class="menu-img-wrapper">
+            <img src="https://images.pexels.com/photos/1279330/pexels-photo-1279330.jpeg" alt="Italian Herb Pasta configuration">
+          </div>
+          <div class="menu-body">
+            <h5 class="fw-bold mb-2">Italian Herb Pasta</h5>
+            <div class="d-flex justify-content-between align-items-center mt-3">
+              <span class="menu-price">₹150</span>
+              <button class="btn btn-modern-outline py-2 px-4 btn-sm" data-bs-toggle="modal" data-bs-target="#orderModal">Request</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Item Card 4 -->
+      <div class="col-lg-4 col-md-6">
+        <div class="menu-card h-100">
+          <div class="menu-img-wrapper">
+            <img src="https://images.pexels.com/photos/1583884/pexels-photo-1583884.jpeg" alt="Paprika Fries element">
+          </div>
+          <div class="menu-body">
+            <h5 class="fw-bold mb-2">Smoked Paprika Fries</h5>
+            <div class="d-flex justify-content-between align-items-center mt-3">
+              <span class="menu-price">₹80</span>
+              <button class="btn btn-modern-outline py-2 px-4 btn-sm" data-bs-toggle="modal" data-bs-target="#orderModal">Request</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Item Card 5 -->
+      <div class="col-lg-4 col-md-6">
+        <div class="menu-card h-100">
+          <div class="menu-img-wrapper">
+            <img src="https://images.pexels.com/photos/315755/pexels-photo-315755.jpeg" alt="Garden Veggie assembly">
+          </div>
+          <div class="menu-body">
+            <h5 class="fw-bold mb-2">Garden Fresh Veggie Pizza</h5>
+            <div class="d-flex justify-content-between align-items-center mt-3">
+              <span class="menu-price">₹140</span>
+              <button class="btn btn-modern-outline py-2 px-4 btn-sm" data-bs-toggle="modal" data-bs-target="#orderModal">Request</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Item Card 6 -->
+      <div class="col-lg-4 col-md-6">
+        <div class="menu-card h-100">
+          <div class="menu-img-wrapper">
+            <img src="https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg" alt="Mediterranean Salad layout">
+          </div>
+          <div class="menu-body">
+            <h5 class="fw-bold mb-2">Mediterranean Healthy Salad</h5>
+            <div class="d-flex justify-content-between align-items-center mt-3">
+              <span class="menu-price">₹90</span>
+              <button class="btn btn-modern-outline py-2 px-4 btn-sm" data-bs-toggle="modal" data-bs-target="#orderModal">Request</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Modern Bento Grid Services Section -->
+  <section class="container py-5">
+    <h2 class="section-title">Functional Ecosystem</h2>
+    <p class="section-subtitle">How we maintain systematic hospitality across modern digital logistics structures.</p>
+
+    <div class="bento-grid">
+      <div class="bento-item large">
+        <i class="bi bi-truck bento-icon"></i>
+        <h4 class="fw-bold text-white mb-2">Thermal Insulated Delivery</h4>
+        <p class="text-white mb-0 small">Automated delivery routing metrics engineered explicitly to verify target ambient storage temps down to the exact minute of handoff.</p>
+      </div>
+      <div class="bento-item">
+        <i class="bi bi-calendar-check bento-icon"></i>
+        <h4 class="fw-bold text-white mb-2">Instant Booking</h4>
+        <p class="text-white mb-0 small">Real-time dynamic seat reservation architectures built cleanly.</p>
+      </div>
+      <div class="bento-item">
+        <i class="bi bi-cup-hot bento-icon"></i>
+        <h4 class="fw-bold text-white mb-2">Curated Catering</h4>
+        <p class="text-white mb-0 small">Bespoke luxury food setups.</p>
+      </div>
+      <div class="bento-item large">
+        <i class="bi bi-lightning-charge bento-icon"></i>
+        <h4 class="fw-bold text-white mb-2">Synchronized Kitchen Operations</h4>
+        <p class="text-white mb-0 small">High speed execution timelines ensuring zero drag between active meal firing sequences and client table placements.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Minimal Structural Gallery Grid -->
+  <section class="container py-5 gallery-grid" id="gallery">
+    <h2 class="section-title">Visual Proof</h2>
+    <p class="section-subtitle">Raw captured documentation inside active dining modules.</p>
+
+    <div class="row g-3">
+      <div class="col-lg-4 col-md-6"><img src="https://images.pexels.com/photos/70497/pexels-photo-70497.jpeg" alt="Tasty visual record"></div>
+      <div class="col-lg-4 col-md-6"><img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?q=80&w=1200&auto=format&fit=crop" alt="Tasty visual record"></div>
+      <div class="col-lg-4 col-md-6"><img src="https://images.unsplash.com/photo-1550547660-d9450f859349?q=80&w=1200&auto=format&fit=crop" alt="Tasty visual record"></div>
+      <div class="col-lg-4 col-md-6"><img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?q=80&w=1200&auto=format&fit=crop" alt="Tasty visual record"></div>
+      <div class="col-lg-4 col-md-6"><img src="https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?q=80&w=1200&auto=format&fit=crop" alt="Tasty visual record"></div>
+      <div class="col-lg-4 col-md-6"><img src="https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?q=80&w=1200&auto=format&fit=crop" alt="Tasty visual record"></div>
+    </div>
+  </section>
+
+  <!-- Minimal Review Layouts -->
+  <section class="container py-5">
+    <h2 class="section-title">Verified Feedback</h2>
+    <p class="section-subtitle">Client interactions noted directly within local geographic nodes.</p>
+
+    <div class="row g-4">
+      <div class="col-lg-4">
+        <div class="review-node d-flex flex-column justify-content-between">
+          <p class="text-white leading-relaxed">"The flavor geometry in the herb-infused pasta courses sets a distinct precedent for modern restaurant culinary systems locally."</p>
+          <div class="d-flex align-items-center gap-3 mt-4">
+            <img src="https://randomuser.me/api/portraits/men/32.jpg" class="review-avatar" alt="John">
+            <div>
+              <h6 class="fw-bold mb-0 text-white">John Doe</h6>
+              <small class="text-primary">★★★★★</small>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="review-node d-flex flex-column justify-content-between">
+          <p class="text-white leading-relaxed">"Exceptional packaging speed metrics and precise temperature controls across off-premise home orders."</p>
+          <div class="d-flex align-items-center gap-3 mt-4">
+            <img src="https://randomuser.me/api/portraits/women/45.jpg" class="review-avatar" alt="Emma">
+            <div>
+              <h6 class="fw-bold mb-0 text-white">Emma Watson</h6>
+              <small class="text-primary">★★★★★</small>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="review-node d-flex flex-column justify-content-between">
+          <p class="text-white leading-relaxed">"Incredibly minimalist layout and atmosphere dynamics inside. A clear masterclass in sleek structural hospitality."</p>
+          <div class="d-flex align-items-center gap-3 mt-4">
+            <img src="https://randomuser.me/api/portraits/men/50.jpg" class="review-avatar" alt="David">
+            <div>
+              <h6 class="fw-bold mb-0 text-white">David Miller</h6>
+              <small class="text-primary">★★★★☆</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Modern Clean Form System -->
+  <section class="container py-5" id="contact">
+    <div class="row justify-content-between g-5">
+      <div class="col-lg-4">
+        <h2 class="section-title text-start">Initiate Contact</h2>
+        <p class="text-white mb-4">Reach out regarding special events, operational consulting parameters, or press inquiries.</p>
+        <div class="mb-2"><i class="bi bi-geo-alt text-primary me-2"></i> Ahmedabad, Gujarat, India</div>
+        <div><i class="bi bi-telephone text-primary me-2"></i> +91 9876543210</div>
+      </div>
+      <div class="col-lg-7">
+        <form class="row g-3" onsubmit="event.preventDefault();">
+          <div class="col-md-6">
+            <input type="text" class="form-control modern-input" placeholder="Name Ident" required>
+          </div>
+          <div class="col-md-6">
+            <input type="email" class="form-control modern-input" placeholder="Email Address" required>
+          </div>
+          <div class="col-12">
+            <input type="tel" class="form-control modern-input" placeholder="Contact Telephone Line">
+          </div>
+          <div class="col-12">
+            <textarea class="form-control modern-input" rows="4" placeholder="Message details..." required></textarea>
+          </div>
+          <div class="col-12 text-end">
+            <button type="submit" class="btn btn-modern px-5">Submit Manifest</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Minimalist Black Footer Module -->
+  <footer class="text-white">
+    <div class="container">
+      <div class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-4">
+        <span class="navbar-brand fw-bold text-white">TASTY<span class="text-primary">.</span></span>
+        <div class="social-links">
+          <a href="#"><i class="bi bi-facebook"></i></a>
+          <a href="#"><i class="bi bi-instagram"></i></a>
+          <a href="#"><i class="bi bi-twitter-x"></i></a>
+          <a href="#"><i class="bi bi-youtube"></i></a>
+        </div>
+      </div>
+      <hr class="my-4" style="border-color: var(--border-color);">
+      <div class="d-flex flex-column flex-md-row justify-content-between small">
+        <p class="mb-0">© 2026 Tasty Systems Inc. All human rights reserved.</p>
+        <p class="mb-0">Designed cleanly for premium interaction performance standards.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Clean Minimal Dialog Order Frame -->
+  <div class="modal fade" id="orderModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header border-0 p-4 pb-0">
+          <h4 class="modal-title fw-bold">Order Acquisition</h4>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body p-4">
+          <form class="row g-3" onsubmit="event.preventDefault();">
+            <div class="col-12">
+              <input type="text" class="form-control modern-input" placeholder="Client Name" required>
+            </div>
+            <div class="col-12">
+              <input type="tel" class="form-control modern-input" placeholder="Phone Link" required>
+            </div>
+            <div class="col-12">
+              <input type="text" class="form-control modern-input" placeholder="Desired Item Selection">
+            </div>
+            <div class="col-12 mt-4">
+              <button type="submit" class="btn btn-modern w-100 py-3">Confirm Dispatch</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
